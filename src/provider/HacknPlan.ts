@@ -20,11 +20,43 @@ class HacknPlan extends BaseProvider {
     }
 
     public async parseData() {
-        this.payload.content = "Test Payload"
+        if(!this.body.ProjectId) {
+            return
+        }
+        var type = 'project';
+
+
+        var url =`https://app.hacknplan.com/p/${this.body.ProjectId}`
+        if(this.body.WorkItemId) {
+            url += `/kanban?taskId=${this.body.WorkItemId}`
+            type = 'task'
+        }
+        if(this.body.CommentId) {
+            type = 'comment'
+        }
+
+        var title = `Project ${this.body.ProjectId}`;
+        var desc = '';
+
+        switch(type) {
+            case 'task':
+                title = `#${this.body.WorkItemId} ${this.body.Title} ${this.body.Stage.Status}`
+                desc = `${this.body.Description}`;
+                 break
+            case 'comment':
+                title = `#${this.body.WorkItemId} comment`
+                desc = `${this.body.Text}`;
+                break
+            default:
+                desc = JSON.stringify(this.body)
+                break
+        }
+
+
         const embed = new Embed()
-        embed.title = "test Title"
-        embed.url = "https://app.hacknplan.com/p/2221"
-        embed.description = JSON.stringify(this.body) + " Headers: " + JSON.stringify(this.headers)
+        embed.title = title
+        embed.url = url
+        embed.description = desc
         this.addEmbed(embed)
     }
 }
