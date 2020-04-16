@@ -41,7 +41,9 @@ class HacknPlan extends BaseProvider {
         switch(type) {
             case 'task':
                 title = `#${this.body.WorkItemId} ${this.body.Title} ${this.body.Stage.Status}`
-                desc = `${this.body.Description}`;
+                if(this.body.Description) {
+                    desc = this.body.Description;
+                }
                  break
             case 'comment':
                 title = `#${this.body.WorkItemId} comment`
