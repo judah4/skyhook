@@ -45,7 +45,7 @@ class HacknPlan extends BaseProvider {
                     desc = this.body.Description;
                 }
                 desc += ` ${JSON.stringify(this.body)}`
-                 break
+                break
             case 'comment':
                 title = `#${this.body.WorkItemId} comment`
                 desc = `${this.body.Text}`;
