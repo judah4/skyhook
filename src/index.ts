@@ -27,6 +27,7 @@ import { Trello } from './provider/Trello'
 import { Unity } from './provider/Unity'
 import { UptimeRobot } from './provider/UptimeRobot'
 import { VSTS } from './provider/VSTS'
+import { HacknPlan } from './provider/HacknPlan'
 
 LoggerUtil.init()
 
@@ -57,7 +58,8 @@ const providers: any[] = [
     Trello,
     Unity,
     UptimeRobot,
-    VSTS
+    VSTS,
+    HacknPlan
 ]
 
 const providersMap = new Map<string, any>()
